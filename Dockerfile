@@ -8,6 +8,12 @@ RUN pip3 install jupyter
 RUN pip3 install jupyterlab
 RUN pip3 install jupyterthemes
 
+# Install vim plugin for Jupyter Notebook
+RUN apt install git -y
+RUN mkdir -p $(jupyter --data-dir)/nbextensions
+RUN cd $(jupyter --data-dir)/nbextensions && git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding
+RUN jupyter nbextension enable vim_binding/vim_binding
+
 # chose jupyter theme
 RUN jt -t onedork
 
